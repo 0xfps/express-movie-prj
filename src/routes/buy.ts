@@ -27,8 +27,9 @@ buyRouter.get("/", (req, res) => {
     })
 })
 
-buyRouter.get("/:id/:num/:amount", (req, res) => {
-    const { id, num, amount } = req.params
+// /api/buy/purchase?id=id&num=num&amount=amount
+buyRouter.get("/purchase", (req, res) => {
+    const { id, num, amount } = req.query
 
     const _id = Number(id)
     const _num = Number(num)
@@ -38,15 +39,25 @@ buyRouter.get("/:id/:num/:amount", (req, res) => {
         if (films.length > 0) {
             const oneFilm = films.find((v, i, a) => v.id == _id)
             console.log(oneFilm)
+
             if (oneFilm == undefined) {
                 res.status(404).send("Film not found.")
             } else {
-                if ((oneFilm.price * _num) < _amount) {
-                    res.status(403).send("Price low.")
+                if (oneFilm.available > 0) {
+                    if (oneFilm.available > _num) {
+                        if ((oneFilm.price * _num) < _amount) {
+                            res.status(403).send("Price low.")
+                        } else {
+                            console.log("Bought")
+                            decrementTotalFilms(_num)
+                            incrementTotalCash((oneFilm.price * _num))
+                            oneFilm.available -= _num
+                        }
+                    } else {
+                        res.status(503).send("Number in stock less than purchase.")
+                    }
                 } else {
-                    console.log("Bought")
-                    decrementTotalFilms(_num)
-                    incrementTotalCash((oneFilm.price * _num))
+                    res.status(503).send("Film sold out.")
                 }
             }
         } else {
