@@ -19,38 +19,40 @@ const hash_1 = require("../utils/hash");
 const loginRoute = (0, express_1.Router)();
 loginRoute.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
-    if (!(0, empty_1.empty)(username) && !(0, empty_1.empty)(password)) {
-        const findUser = yield users_1.default.findOne({ username: username });
-        if (findUser != null) {
-            const usersHash = findUser.password;
-            if ((0, hash_1.verifyPassword)(password.toString(), usersHash)) {
-                req.session.userId = findUser.userId;
-                res.cookie("userId", findUser.userId, {
-                    maxAge: 60 * 60 * 24
-                });
-                console.log(req.session);
-            }
-            else {
-                res.status(500);
-                res.send({
-                    success: false,
-                    msg: "Invalid password!"
-                });
-            }
-        }
-        else {
-            res.status(400);
-            res.send({
-                success: false,
-                msg: "Inexistent username!"
-            });
-        }
-    }
-    else {
+    if ((0, empty_1.empty)(username) || (0, empty_1.empty)(password)) {
         res.status(300);
         res.send({
             success: false,
             msg: "Invalid credentials"
+        });
+    }
+    const findUser = yield users_1.default.findOne({ username: username });
+    if (findUser != null) {
+        const usersHash = findUser.password;
+        if ((0, hash_1.verifyPassword)(password.toString(), usersHash)) {
+            req.session.userId = findUser.userId;
+            res.cookie("userId", findUser.userId, {
+                maxAge: 60 * 60 * 24
+            });
+            res.status(200);
+            res.send({
+                success: true,
+                msg: "Logged In!"
+            });
+        }
+        else {
+            res.status(500);
+            res.send({
+                success: false,
+                msg: "Invalid password!"
+            });
+        }
+    }
+    else {
+        res.status(400);
+        res.send({
+            success: false,
+            msg: "Inexistent username!"
         });
     }
 }));

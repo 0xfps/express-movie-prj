@@ -76,12 +76,12 @@ const validateEmail = (email) => {
 };
 const validatePassword = (password) => {
     let passwordOK = true;
-    let msg = "";
+    let pass = password;
     if (password.toString().length < 8 || password.toString().length > 20) {
         passwordOK = false;
-        msg = "Password must be within 8 and 20 characters";
+        pass = "Password must be within 8 and 20 characters";
     }
-    return [passwordOK, msg];
+    return [passwordOK, pass];
 };
 signupRoute.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, email, password } = req.body;
