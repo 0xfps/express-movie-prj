@@ -6,6 +6,7 @@ import "./db/index"
 import loginRoute from "./routes/login"
 import viewRoute from "./routes/view"
 import postRoute from "./routes/post"
+import buyRoute from "./routes/buy"
 
 const app = express()
 const PORT: 3001 = 3001
@@ -57,3 +58,4 @@ app.use((req, res, next) => {
 })
 
 app.use("/v1/new", postRoute)
+app.use("/v1/buy", buyRoute)

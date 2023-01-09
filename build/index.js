@@ -11,6 +11,7 @@ require("./db/index");
 const login_1 = __importDefault(require("./routes/login"));
 const view_1 = __importDefault(require("./routes/view"));
 const post_1 = __importDefault(require("./routes/post"));
+const buy_1 = __importDefault(require("./routes/buy"));
 const app = (0, express_1.default)();
 const PORT = 3001;
 app.use(express_1.default.json());
@@ -51,3 +52,4 @@ app.use((req, res, next) => {
     }
 });
 app.use("/v1/new", post_1.default);
+app.use("/v1/buy", buy_1.default);
