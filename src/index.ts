@@ -3,9 +3,9 @@ import session from "express-session"
 import cookieParser from "cookie-parser"
 import signupRoute from "./routes/signup"
 import "./db/index"
-import { empty } from "./utils/empty"
 import loginRoute from "./routes/login"
 import viewRoute from "./routes/view"
+import postRoute from "./routes/post"
 
 const app = express()
 const PORT: 3001 = 3001
@@ -35,22 +35,25 @@ app.use("/v1/movies", viewRoute)
 
 app.use((req, res, next) => {
     
-
     if (req.cookies.userId) {
         req.session.userId = req.cookies.userId
         res.cookie("userId", req.cookies.userId, {
             maxAge: 60 * 60 * 24 * 1000 // One day.
         })
+        next()
     } else if (req.session.userId) {
-        req.session.userId = req.session.userId
         res.cookie("userId", req.session.userId, {
             maxAge: 60 * 60 * 24 * 1000 // One day.
         })
+        next()
     } else {
         res.status(404)
         res.send({
             success: false,
             msg: "Session expired"
         })
+        next()
     }
 })
+
+app.use("/v1/new", postRoute)

@@ -10,6 +10,7 @@ const signup_1 = __importDefault(require("./routes/signup"));
 require("./db/index");
 const login_1 = __importDefault(require("./routes/login"));
 const view_1 = __importDefault(require("./routes/view"));
+const post_1 = __importDefault(require("./routes/post"));
 const app = (0, express_1.default)();
 const PORT = 3001;
 app.use(express_1.default.json());
@@ -32,12 +33,13 @@ app.use((req, res, next) => {
         res.cookie("userId", req.cookies.userId, {
             maxAge: 60 * 60 * 24 * 1000 // One day.
         });
+        next();
     }
     else if (req.session.userId) {
-        req.session.userId = req.session.userId;
         res.cookie("userId", req.session.userId, {
             maxAge: 60 * 60 * 24 * 1000 // One day.
         });
+        next();
     }
     else {
         res.status(404);
@@ -45,5 +47,7 @@ app.use((req, res, next) => {
             success: false,
             msg: "Session expired"
         });
+        next();
     }
 });
+app.use("/v1/new", post_1.default);
