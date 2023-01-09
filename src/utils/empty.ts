@@ -2,7 +2,7 @@ export const empty = (val: string | number ): boolean => {
     const valString: string = val.toString()
 
     if (val == undefined || val == null) {
-        return false
+        return true
     }
 
     if (valString.trim().length == 0) {

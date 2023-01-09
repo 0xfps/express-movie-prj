@@ -4,7 +4,7 @@ exports.emptyObject = exports.emptyArray = exports.empty = void 0;
 const empty = (val) => {
     const valString = val.toString();
     if (val == undefined || val == null) {
-        return false;
+        return true;
     }
     if (valString.trim().length == 0) {
         return true;
