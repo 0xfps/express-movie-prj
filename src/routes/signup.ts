@@ -98,7 +98,7 @@ signupRoute.post("/signup", async (req, res) => {
             req.session.userId = userId
 
             res.cookie("userId", userId, {
-                maxAge: 60 * 60 * 24
+                maxAge: 60 * 60 * 24 * 1000 // One day.
             })
 
             res.status(201)

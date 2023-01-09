@@ -32,7 +32,7 @@ loginRoute.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, functi
         if ((0, hash_1.verifyPassword)(password.toString(), usersHash)) {
             req.session.userId = findUser.userId;
             res.cookie("userId", findUser.userId, {
-                maxAge: 60 * 60 * 24
+                maxAge: 60 * 60 * 24 * 1000 // One day.
             });
             res.status(200);
             res.send({

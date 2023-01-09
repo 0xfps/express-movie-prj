@@ -25,7 +25,7 @@ loginRoute.post("/login", async (req, res) => {
         if (verifyPassword(password.toString(), usersHash)) {
             req.session.userId = findUser.userId
             res.cookie("userId", findUser.userId, {
-                maxAge: 60 * 60 * 24
+                maxAge: 60 * 60 * 24 * 1000 // One day.
             })
 
             res.status(200)
