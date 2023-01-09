@@ -2,6 +2,8 @@ import express from "express"
 import session from "express-session"
 import signupRoute from "./routes/signup"
 import "./db/index"
+import { empty } from "./utils/empty"
+import loginRoute from "./routes/login"
 
 const app = express()
 const PORT: 3001 = 3001
@@ -25,3 +27,4 @@ app.use(session({
 app.listen(PORT, () => console.log(`Server live on port ${PORT}!`))
 
 app.use("/v1/auth", signupRoute)
+app.use("/v1/auth", loginRoute)

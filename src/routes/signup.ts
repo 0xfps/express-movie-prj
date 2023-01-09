@@ -72,14 +72,14 @@ const validateEmail = (email: string): [boolean, string] => {
 
 const validatePassword = (password: string): [boolean, string] => {
     let passwordOK: boolean = true
-    let msg: string = ""
+    let pass: string = password
 
     if (password.toString().length < 8 || password.toString().length > 20) {
         passwordOK = false
-        msg = "Password must be within 8 and 20 characters"
+        pass = "Password must be within 8 and 20 characters"
     }
 
-    return [passwordOK, msg]
+    return [passwordOK, pass]
 }
 
 signupRoute.post("/signup", async (req, res) => {
