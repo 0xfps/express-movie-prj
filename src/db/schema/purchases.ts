@@ -1,27 +1,27 @@
 import mongoose from "mongoose"
 
-const movies = new mongoose.Schema({
-    movieId: {
+const purchases = new mongoose.Schema({
+    purchaseId: {
         type: mongoose.SchemaTypes.String,
         required: true,
         unique: true
     },
-    name: {
+    buyerId: {
         type: mongoose.SchemaTypes.String,
         required: true
     },
-    desc: {
+    movieId: {
         type: mongoose.SchemaTypes.String,
-        required: true
-    },
-    price: {
-        type: mongoose.SchemaTypes.Number,
         required: true
     },
     quantity: {
         type: mongoose.SchemaTypes.Number,
         required: true
+    },
+    price: {
+        type: mongoose.SchemaTypes.Number,
+        required: true
     }
 })
 
-export default mongoose.model("movies", movies)
+export default mongoose.model("purchases", purchases)
