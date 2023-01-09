@@ -96,7 +96,7 @@ signupRoute.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, func
         if (newUser != null) {
             req.session.userId = userId;
             res.cookie("userId", userId, {
-                maxAge: 60 * 60 * 24
+                maxAge: 60 * 60 * 24 * 1000 // One day.
             });
             res.status(201);
             res.send({
