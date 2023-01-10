@@ -17,7 +17,6 @@ const users_1 = __importDefault(require("../db/schema/users"));
 jest.mock("../db/schema/users");
 jest.mock("../utils/empty");
 jest.mock("../utils/hash", () => ({
-    hashPassword: jest.fn((x) => "hashhahha"),
     verifyPassword: jest.fn((x, y) => x == y),
     getRandom: jest.fn(() => "a9ieqipj")
 }));
