@@ -40,10 +40,7 @@ const users_1 = __importDefault(require("../db/schema/users"));
 require("../utils/hash");
 const hash_1 = require("../utils/hash");
 jest.mock("../db/schema/users");
-jest.mock("../utils/hash", () => ({
-    hashPassword: jest.fn((pass) => "let's call this a hash"),
-    getRandom: jest.fn(() => "randomxy")
-}));
+jest.mock("../utils/hash");
 const fakeReq = {
     body: {
         username: "user",
@@ -87,19 +84,25 @@ it("should fail with a 500 because password is invalid", () => __awaiter(void 0,
     expect(fakeRes.status).toBeCalledWith(500);
 }));
 it("should fail with a 300 because user wasn't created", () => __awaiter(void 0, void 0, void 0, function* () {
+    hashPassword: jest.fn((pass) => "let's call this a hash");
+    getRandom: jest.fn(() => "randomxy");
     // @ts-ignore
     users_1.default.create.mockImplementationOnce(() => null);
     yield (0, signup_1.default)(fakeReq2, fakeRes);
     expect(fakeRes.status).toBeCalledWith(300);
 }));
 it("should signup with a 200 because all is well", () => __awaiter(void 0, void 0, void 0, function* () {
+    hashPassword: jest.fn((pass) => "let's call this a hash");
+    getRandom: jest.fn(() => "randomxy");
     // @ts-ignore
     users_1.default.create.mockImplementationOnce(() => ({
         userId: hash_1.getRandom,
         username: signup_1.validateUsername,
         email: signup_1.validateEmail,
-        password: signup_1.validatePassword
+        password: hash_1.hashPassword
     }));
     yield (0, signup_1.default)(fakeReq2, fakeRes);
+    expect(hash_1.hashPassword).toBeCalledWith("password");
+    expect(hash_1.getRandom).toBeCalledTimes(1);
     expect(fakeRes.status).toBeCalledWith(201);
 }));
