@@ -4,11 +4,7 @@ import "../utils/hash"
 import { getRandom, hashPassword } from "../utils/hash"
 
 jest.mock("../db/schema/users")
-
-jest.mock("../utils/hash", () => ({
-    hashPassword: jest.fn((pass) => "let's call this a hash"),
-    getRandom: jest.fn(() => "randomxy")
-}))
+jest.mock("../utils/hash")
 
 const fakeReq = {
     body: {
@@ -62,6 +58,9 @@ it("should fail with a 500 because password is invalid", async () => {
 })
 
 it("should fail with a 300 because user wasn't created", async () => {
+    hashPassword: jest.fn((pass) => "let's call this a hash")
+    getRandom: jest.fn(() => "randomxy")
+
     // @ts-ignore
     users.create.mockImplementationOnce(() => null)
 
@@ -71,15 +70,20 @@ it("should fail with a 300 because user wasn't created", async () => {
 })
 
 it("should signup with a 200 because all is well", async () => {
+    hashPassword: jest.fn((pass) => "let's call this a hash")
+    getRandom: jest.fn(() => "randomxy")
+
     // @ts-ignore
     users.create.mockImplementationOnce(() => ({
         userId: getRandom,
         username: validateUsername,
         email: validateEmail,
-        password: validatePassword
+        password: hashPassword
     }))
 
     await signupController(fakeReq2, fakeRes)
 
+    expect(hashPassword).toBeCalledWith("password")
+    expect(getRandom).toBeCalledTimes(1)
     expect(fakeRes.status).toBeCalledWith(201)
 })

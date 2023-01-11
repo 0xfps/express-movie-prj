@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1673430451097" clover="3.2.0">
-  <project timestamp="1673430451098" name="All files">
-    <metrics statements="241" coveredstatements="211" conditionals="56" coveredconditionals="47" methods="21" coveredmethods="16" elements="318" coveredelements="274" complexity="0" loc="241" ncloc="241" packages="3" files="4" classes="4"/>
+<coverage generated="1673432361132" clover="3.2.0">
+  <project timestamp="1673432361132" name="All files">
+    <metrics statements="269" coveredstatements="224" conditionals="58" coveredconditionals="48" methods="25" coveredmethods="17" elements="352" coveredelements="289" complexity="0" loc="269" ncloc="269" packages="3" files="5" classes="5"/>
     <package name="controllers">
       <metrics statements="188" coveredstatements="175" conditionals="54" coveredconditionals="46" methods="17" coveredmethods="15"/>
       <file name="login.js" path="C:\Users\PC\OneDrive\Desktop\movie-prj\build\controllers\login.js">
@@ -233,7 +233,7 @@
       </file>
     </package>
     <package name="utils">
-      <metrics statements="26" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <metrics statements="54" coveredstatements="22" conditionals="2" coveredconditionals="1" methods="7" coveredmethods="1"/>
       <file name="empty.js" path="C:\Users\PC\OneDrive\Desktop\movie-prj\build\utils\empty.js">
         <metrics statements="26" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -262,6 +262,37 @@
         <line num="24" count="0" type="stmt"/>
         <line num="25" count="0" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
+      </file>
+      <file name="hash.js" path="C:\Users\PC\OneDrive\Desktop\movie-prj\build\utils\hash.js">
+        <metrics statements="28" coveredstatements="13" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="3" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
       </file>
     </package>
   </project>
