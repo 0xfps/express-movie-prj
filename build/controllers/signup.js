@@ -108,7 +108,7 @@ const signupController = (req, res) => __awaiter(void 0, void 0, void 0, functio
             });
         }
         else {
-            res.status(500);
+            res.status(300);
             res.send({
                 success: false,
                 msg: "Server Error!"
