@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -12,8 +35,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const signup_1 = __importDefault(require("../controllers/signup"));
+const signup_1 = __importStar(require("../controllers/signup"));
+const users_1 = __importDefault(require("../db/schema/users"));
 require("../utils/hash");
+const hash_1 = require("../utils/hash");
 jest.mock("../db/schema/users");
 jest.mock("../utils/hash", () => ({
     hashPassword: jest.fn((pass) => "let's call this a hash"),
@@ -21,9 +46,22 @@ jest.mock("../utils/hash", () => ({
 }));
 const fakeReq = {
     body: {
-        username: "User",
+        username: "user",
         email: "email",
         password: "pass"
+    },
+    session: {
+        userId: "none"
+    }
+};
+const fakeReq2 = {
+    body: {
+        username: "username",
+        email: "email@mail.com",
+        password: "password"
+    },
+    session: {
+        userId: "none"
     }
 };
 const fakeRes = {
@@ -31,12 +69,37 @@ const fakeRes = {
     send: jest.fn(() => ({
         success: "false",
         msg: []
+    })),
+    cookie: jest.fn((x, y, z) => ({
+        x: y
     }))
 };
-it("should fail with a 500", () => __awaiter(void 0, void 0, void 0, function* () {
-    validateUsername: jest.fn((name) => [false, "Username must be between 5 and 15 characters!"]);
-    validateEmail: jest.fn((email) => [false, "Invalid email!"]);
-    validatePassword: jest.fn((pass) => [false, "Password must be within 8 and 20 characters"]);
+it("should fail with a 500 because username is invalid", () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, signup_1.default)(fakeReq, fakeRes);
     expect(fakeRes.status).toBeCalledWith(500);
+}));
+it("should fail with a 500 because email is invalid", () => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, signup_1.default)(fakeReq, fakeRes);
+    expect(fakeRes.status).toBeCalledWith(500);
+}));
+it("should fail with a 500 because password is invalid", () => __awaiter(void 0, void 0, void 0, function* () {
+    yield (0, signup_1.default)(fakeReq, fakeRes);
+    expect(fakeRes.status).toBeCalledWith(500);
+}));
+it("should fail with a 300 because user wasn't created", () => __awaiter(void 0, void 0, void 0, function* () {
+    // @ts-ignore
+    users_1.default.create.mockImplementationOnce(() => null);
+    yield (0, signup_1.default)(fakeReq2, fakeRes);
+    expect(fakeRes.status).toBeCalledWith(300);
+}));
+it("should signup with a 200 because all is well", () => __awaiter(void 0, void 0, void 0, function* () {
+    // @ts-ignore
+    users_1.default.create.mockImplementationOnce(() => ({
+        userId: hash_1.getRandom,
+        username: fakeReq2.body.username,
+        email: fakeReq2.body.password,
+        password: signup_1.validatePassword
+    }));
+    yield (0, signup_1.default)(fakeReq2, fakeRes);
+    expect(fakeRes.status).toBeCalledWith(201);
 }));

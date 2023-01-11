@@ -105,7 +105,7 @@ const signupController = async (req, res) => {
                 msg: "Account created!"
             })
         } else {
-            res.status(500)
+            res.status(300)
             res.send({
                 success: false,
                 msg: "Server Error!"
