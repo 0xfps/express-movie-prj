@@ -96,8 +96,8 @@ it("should signup with a 200 because all is well", () => __awaiter(void 0, void 
     // @ts-ignore
     users_1.default.create.mockImplementationOnce(() => ({
         userId: hash_1.getRandom,
-        username: fakeReq2.body.username,
-        email: fakeReq2.body.password,
+        username: signup_1.validateUsername,
+        email: signup_1.validateEmail,
         password: signup_1.validatePassword
     }));
     yield (0, signup_1.default)(fakeReq2, fakeRes);
