@@ -1,4 +1,4 @@
-import signupController, { validateEmail, validatePassword } from "../controllers/signup"
+import signupController, { validateEmail, validatePassword, validateUsername } from "../controllers/signup"
 import users from "../db/schema/users"
 import "../utils/hash"
 import { getRandom, hashPassword } from "../utils/hash"
@@ -74,8 +74,8 @@ it("should signup with a 200 because all is well", async () => {
     // @ts-ignore
     users.create.mockImplementationOnce(() => ({
         userId: getRandom,
-        username: fakeReq2.body.username,
-        email: fakeReq2.body.password,
+        username: validateUsername,
+        email: validateEmail,
         password: validatePassword
     }))
 
