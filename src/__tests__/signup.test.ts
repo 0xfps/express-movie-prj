@@ -70,8 +70,10 @@ it("should fail with a 300 because user wasn't created", async () => {
 })
 
 it("should signup with a 200 because all is well", async () => {
-    hashPassword: jest.fn((pass) => "let's call this a hash")
-    getRandom: jest.fn(() => "randomxy")
+    // @ts-ignore
+    hashPassword.mockResolvedValueOnce(() => "let's call this a hash")
+    // @ts-ignore
+    getRandom.mockResolvedValueOnce(() => "randomxy")
 
     // @ts-ignore
     users.create.mockImplementationOnce(() => ({

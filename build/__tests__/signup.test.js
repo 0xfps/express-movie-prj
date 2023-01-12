@@ -92,8 +92,10 @@ it("should fail with a 300 because user wasn't created", () => __awaiter(void 0,
     expect(fakeRes.status).toBeCalledWith(300);
 }));
 it("should signup with a 200 because all is well", () => __awaiter(void 0, void 0, void 0, function* () {
-    hashPassword: jest.fn((pass) => "let's call this a hash");
-    getRandom: jest.fn(() => "randomxy");
+    // @ts-ignore
+    hash_1.hashPassword.mockResolvedValueOnce(() => "let's call this a hash");
+    // @ts-ignore
+    hash_1.getRandom.mockResolvedValueOnce(() => "randomxy");
     // @ts-ignore
     users_1.default.create.mockImplementationOnce(() => ({
         userId: hash_1.getRandom,
