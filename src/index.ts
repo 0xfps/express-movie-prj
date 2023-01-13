@@ -29,6 +29,7 @@ app.use(session({
 app.use(cookieParser())
 
 app.listen(PORT, () => console.log(`Server live on port ${PORT}!`))
+
 app.get("/", (req, res) => {
     res.send({
         status: 200,
@@ -40,28 +41,28 @@ app.use("/v1/auth", signupRoute)
 app.use("/v1/auth", loginRoute)
 app.use("/v1/movies", viewRoute)
 
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
 
-    if (req.cookies.userId) {
-        req.session.userId = req.cookies.userId
-        res.cookie("userId", req.cookies.userId, {
-            maxAge: 60 * 60 * 24 * 1000 // One day.
-        })
-        next()
-    } else if (req.session.userId) {
-        res.cookie("userId", req.session.userId, {
-            maxAge: 60 * 60 * 24 * 1000 // One day.
-        })
-        next()
-    } else {
-        res.status(404)
-        res.send({
-            success: false,
-            msg: "Session expired"
-        })
-        next()
-    }
-})
+//     if (req.cookies.userId) {
+//         req.session.userId = req.cookies.userId
+//         res.cookie("userId", req.cookies.userId, {
+//             maxAge: 60 * 60 * 24 * 1000 // One day.
+//         })
+//         next()
+//     } else if (req.session.userId) {
+//         res.cookie("userId", req.session.userId, {
+//             maxAge: 60 * 60 * 24 * 1000 // One day.
+//         })
+//         next()
+//     } else {
+//         res.status(404)
+//         res.send({
+//             success: false,
+//             msg: "Session expired"
+//         })
+//         next()
+//     }
+// })
 
 app.use("/v1/new", postRoute)
 app.use("/v1/buy", buyRoute)
