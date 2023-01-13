@@ -34,27 +34,29 @@ app.get("/", (req, res) => {
 app.use("/v1/auth", signup_1.default);
 app.use("/v1/auth", login_1.default);
 app.use("/v1/movies", view_1.default);
-// app.use((req, res, next) => {
-//     if (req.cookies.userId) {
-//         req.session.userId = req.cookies.userId
-//         res.cookie("userId", req.cookies.userId, {
-//             maxAge: 60 * 60 * 24 * 1000 // One day.
-//         })
-//         next()
-//     } else if (req.session.userId) {
-//         res.cookie("userId", req.session.userId, {
-//             maxAge: 60 * 60 * 24 * 1000 // One day.
-//         })
-//         next()
-//     } else {
-//         res.status(404)
-//         res.send({
-//             success: false,
-//             msg: "Session expired"
-//         })
-//         next()
-//     }
-// })
+app.use((req, res, next) => {
+    if (req.cookies.userId) {
+        req.session.userId = req.cookies.userId;
+        res.cookie("userId", req.cookies.userId, {
+            maxAge: 60 * 60 * 24 * 1000 // One day.
+        });
+        next();
+    }
+    else if (req.session.userId) {
+        res.cookie("userId", req.session.userId, {
+            maxAge: 60 * 60 * 24 * 1000 // One day.
+        });
+        next();
+    }
+    else {
+        res.status(404);
+        res.send({
+            success: false,
+            msg: "Session expired"
+        });
+        next();
+    }
+});
 app.use("/v1/new", post_1.default);
 app.use("/v1/buy", buy_1.default);
 exports.default = app;
