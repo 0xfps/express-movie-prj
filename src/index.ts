@@ -29,6 +29,12 @@ app.use(session({
 app.use(cookieParser())
 
 app.listen(PORT, () => console.log(`Server live on port ${PORT}!`))
+app.get("/", (req, res) => {
+    res.send({
+        status: 200,
+        msg: "Connected and live!"
+    })
+})
 
 app.use("/v1/auth", signupRoute)
 app.use("/v1/auth", loginRoute)
