@@ -53,3 +53,4 @@ app.use((req, res, next) => {
 });
 app.use("/v1/new", post_1.default);
 app.use("/v1/buy", buy_1.default);
+exports.default = app;
