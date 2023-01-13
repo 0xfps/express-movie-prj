@@ -35,7 +35,7 @@ app.use("/v1/auth", loginRoute)
 app.use("/v1/movies", viewRoute)
 
 app.use((req, res, next) => {
-    
+
     if (req.cookies.userId) {
         req.session.userId = req.cookies.userId
         res.cookie("userId", req.cookies.userId, {
@@ -59,3 +59,5 @@ app.use((req, res, next) => {
 
 app.use("/v1/new", postRoute)
 app.use("/v1/buy", buyRoute)
+
+export default app
