@@ -1,0 +1,26 @@
+name: Testing
+on: [push]
+env:
+  PRIVATE_KEY: ${{ secrets.PRIVATE_KEY}}
+  GITHUB_TOKEN: ${{ secrets.WORKFLOW}}
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm install express
+      - run: npm install cookie-parser
+      - run: npm install express-session
+      - run: npm install bcryptjs
+      - run: npm install jest
+      - run: npm install mongoose
+      - run: npm install dotenv
+      - run: npm install @types/express
+      - run: npm install @types/cookie-parser
+      - run: npm install @types/express-session
+      - run: npm install @types/bcryptjs
+      - run: npm install @types/jest
+      - run: npm install @types/mongoose
