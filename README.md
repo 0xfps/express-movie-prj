@@ -3,6 +3,7 @@
 ## API ENDPOINT
 
 🔗 https://express-movie-prj.vercel.app/
+
 🔌 3001
 
 ## Description
@@ -12,6 +13,7 @@ This is a movie renting project for posting and buying movies, cashlessly, from 
 ## Signup
 
 🔗 https://express-movie-prj.vercel.app/v1/auth/signup
+
 🧤 `POST`
 
 ### Request Body
@@ -59,6 +61,7 @@ res.send({
 ## Login
 
 🔗 https://express-movie-prj.vercel.app/v1/auth/login
+
 🧤 `POST`
 
 ### Request Body
@@ -110,6 +113,7 @@ res.send({
 ## View
 
 🔗 https://express-movie-prj.vercel.app/v1/movies
+
 🧤 `GET`
 
 If you want to take a peek at all listed movies on the platform, this is your go to endpoint.
@@ -145,6 +149,7 @@ res.send({
 ## Post
 
 🔗 https://express-movie-prj.vercel.app/v1/new
+
 🧤 `POST`
 
 This is guarded, you must be `logged in` to access.
@@ -198,6 +203,7 @@ res.send({
 ## Buy
 
 🔗 https://express-movie-prj.vercel.app/v1/buy
+
 🧤 `POST`
 
 This is guarded, you must be `logged in` to access.
